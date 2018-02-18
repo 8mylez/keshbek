@@ -2,6 +2,9 @@ import { Meteor } from 'meteor/meteor';
 
 if(Meteor.isServer){
     Meteor.publish('users', function(){
-        return Meteor.users.find({}, { fields: { emails: 1 }});
+        console.log(this.userId);
+        return Meteor.users.find({
+            _id: { $ne: this.userId },
+        }, { fields: { emails: 1 }});
     });
 }
