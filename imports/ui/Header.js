@@ -7,7 +7,7 @@ export default class Header extends Component {
         return(
             <div className="header">
                 <div className="headline">
-                    <h2>Loans</h2>
+                    <h2>Transactions</h2>
                 </div>
                 <div className="searchbar">
                     

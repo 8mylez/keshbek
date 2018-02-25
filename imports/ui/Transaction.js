@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Loans } from '../api/loans';
+import { Transactions } from '../api/transactions';
 
 import moment from 'moment';
 import accounting from 'accounting';
 
-export default class Loan extends Component {
+export default class Transaction extends Component {
     handleEditClick(event) {
         event.preventDefault();
 
@@ -15,36 +15,49 @@ export default class Loan extends Component {
     handleDeleteClick(event) {
         event.preventDefault();
 
-        Meteor.call('loans.remove', this.props.loan._id);
+        Meteor.call('transactions.remove', this.props.transaction._id);
     }
     
     render() {
         return (
-            <li className='loan'>
+            <li className='transaction'>
                 <div className='creditor'>
-                    <div className='creditor-image'>
+                    <div className='image'>
                         <img src='/images/alexander-wolf.jpeg' />
                     </div>
-                    <div className='creditor-label'>
-                        <div className='creditor-name'>
-                            Alexander Wolf
+                    <div className='label'>
+                        <div className='name'>
+                            Von: Marc Baur
                         </div>
-                        <div className='creditor-email'>
-                            {this.props.loan.debitor}
+                        <div className='email'>
+                            {this.props.transaction.creditor}
+                        </div>
+                    </div>
+                </div>
+                <div className='debitor'>
+                    <div className='image'>
+                        <img src='/images/alexander-wolf.jpeg' />
+                    </div>
+                    <div className='label'>
+                        <div className='name'>
+                            An: Alexander Wolf
+                        </div>
+                        <div className='email'>
+                            {this.props.transaction.debitor}
                         </div>
                     </div>
                 </div>
                 <div className='info'>
                     <div className='description'>
-                        {this.props.loan.description}
+                        {this.props.transaction.description}
                     </div>
                     <hr className='divider' />
                     <div className='date'>
-                        {moment(this.props.loan.date).format('DD.MM.YYYY')}
+                        {moment(this.props.transaction.date).format('DD.MM.YYYY')}
                     </div>
                 </div>
                 <div className='amount'>
-                    {accounting.formatMoney(this.props.loan.amount, "€", 2, ".", ",", "%v %s")}
+                    {accounting.formatMoney(this.props.transaction.amount, "€", 2, ".", ",", "%v %s")}
                 </div>
                 <div className='actions'>
                     <button onClick={this.handleEditClick.bind(this)}>

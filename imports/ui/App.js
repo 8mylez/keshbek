@@ -3,41 +3,42 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
-import { Loans } from '/imports/api/loans.js';
-import Loan from './Loan.js';
+import { Transactions } from '/imports/api/transactions.js';
+import Transaction from './Transaction.js';
 import Select from './Select.js';
 import Navbar from './Navbar.js';
 import Header from './Header.js';
 import Footer from './Footer.js';
+import NewTransactionModal from './NewTransactionModal.js';
 
 class App extends Component {
-    renderLoans() {
-        return this.props.loans.map((loan) => (
-            <Loan key={loan._id} loan={loan} />
+    renderTransactions() {
+        return this.props.transactions.map((transaction) => (
+            <Transaction key={transaction._id} transaction={transaction} />
         ));
     }
 
     handleSubmit(event) {
         event.preventDefault();
 
-        const loan = {
+        const transaction = {
+            creditor: ReactDOM.findDOMNode(this.refs.creditor).value,
             debitor: ReactDOM.findDOMNode(this.refs.debitor).value,
             amount: ReactDOM.findDOMNode(this.refs.amount).value,
             description: ReactDOM.findDOMNode(this.refs.description).value,
             date: ReactDOM.findDOMNode(this.refs.date).value,
         };
 
-        Meteor.call('loans.insert', loan);
+        Meteor.call('transactions.insert', transaction);
 
+        ReactDOM.findDOMNode(this.refs.creditor).value = '';
         ReactDOM.findDOMNode(this.refs.debitor).value = '';
         ReactDOM.findDOMNode(this.refs.amount).value = '';
         ReactDOM.findDOMNode(this.refs.description).value = '';
     }
 
     getUsers() {
-        return  Meteor.users.find({
-            _id: { $ne: Meteor.user()._id },
-        }).fetch().map((user) => {
+        return  Meteor.users.find({}).fetch().map((user) => {
             return {
                 value: user._id,
                 label: user.emails[0].address,
@@ -54,8 +55,10 @@ class App extends Component {
                 <div className='content'>
                     { this.props.currentUser ?
                         <div className='container'> 
-                            <h2>Loans</h2>
-                            <form onSubmit={this.handleSubmit.bind(this)}>
+                            
+                            {/*<form onSubmit={this.handleSubmit.bind(this)}>
+                                <label>from</label>
+                                <input type='text' ref='creditor' />
                                 <label>to</label>
                                 <input type='text' ref='debitor' />
                                 <label>Value</label>
@@ -80,27 +83,27 @@ class App extends Component {
                                     style={marginRight}
                                 />
                                 <button type='submit'>save</button>
-                            </form>
-                            <hr />
+                            </form>*/}
                             <div>
                                 <ul>
-                                    {this.renderLoans()}
+                                    {this.renderTransactions()}
                                 </ul> 
                             </div>
                         </div> : 'Bitte einloggen...'
                     }
                 </div>
+                <NewTransactionModal />
             </div>
         )
     }
 }
 
 export default withTracker(() => {
-    Meteor.subscribe('loans');
+    Meteor.subscribe('transactions');
     Meteor.subscribe('users');
     
     return {
-        loans: Loans.find({}, { sort: { createdAt: -1} }).fetch(),
+        transactions: Transactions.find({}, { sort: { createdAt: -1} }).fetch(),
         currentUser: Meteor.user(),
     };
 })(App);

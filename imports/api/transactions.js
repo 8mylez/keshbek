@@ -2,18 +2,19 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
-export const Loans = new Mongo.Collection('loans');
+export const Transactions = new Mongo.Collection('transactions');
 
 if(Meteor.isServer) {
-    Meteor.publish('loans', function(){
-        return Loans.find();
+    Meteor.publish('transactions', function(){
+        return Transactions.find();
     });
 }
 
 Meteor.methods({
-    'loans.insert'(loans) {
-        check(loans, {
+    'transactions.insert'(transaction) {
+        check(transaction, {
             debitor: String,
+            creditor: String,
             amount: String,
             date: String,
             description: String
@@ -23,24 +24,24 @@ Meteor.methods({
             throw new Meteor.Error('not-authorized');
         }
 
-        Loans.insert({
-            debitor: loans.debitor,
-            amount: loans.amount,
-            creditorId: this.userId,
-            description: loans.description,
-            date: loans.date,
+        Transactions.insert({
+            debitor: transaction.debitor,
+            amount: transaction.amount,
+            creditor: transaction.creditor,
+            description: transaction.description,
+            date: transaction.date,
             createdAt: new Date(),
             ownerId: this.userId,
         });
     },
-    'loans.remove'(id) {
+    'transactions.remove'(id) {
         check(id, String);
 
-        Loans.remove(id);
+        Transactions.remove(id);
     }
 });
 
-Loans.helpers({
+Transactions.helpers({
     creditorLabel(){
         return Meteor.users.findOne(this.creditorId).emails[0].address;
     }
