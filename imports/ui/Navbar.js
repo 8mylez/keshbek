@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 
+import { NavLink } from 'react-router-dom';
 import AccountsUIWrapper from './AccountsUIWrapper.js';
 
 const navbarLogoStyle = {
@@ -14,29 +15,29 @@ class Navbar extends Component{
                 <div className='container'>
                     <ul>
                         <li>
-                            <a className='item' style={navbarLogoStyle}>
+                            <NavLink to="/">
                                 <img src='images/keshbek-logo-transparent.png' alt='keshbek logo'/>
-                            </a>
+                            </NavLink>
                         </li>
                         <li>
-                            <a href='#'>
-                                <i className='fa fa-money'></i> Loans
-                            </a>
+                            <NavLink to="/transactions">
+                                <i className='fa fa-money'></i> Transactions
+                            </NavLink>
                         </li>
                         <li>
-                            <a href='#'>
+                            <NavLink to="/contacts">
                                 <i className='fa fa-address-book-o'></i> Contacts
-                            </a>
+                            </NavLink>
                         </li>
                         <li>
-                            <a href='#'>
+                            <NavLink to="/cash-up">
                                 <i className='fa fa-exchange'></i> Cash up
-                            </a>
+                            </NavLink>
                         </li>
                         <li>
-                            <a href='#'>
+                            <NavLink to="/profile">
                                 <i className='fa fa-user'></i> Profile
-                            </a>
+                            </NavLink>
                         </li>
                     </ul>
                 </div>

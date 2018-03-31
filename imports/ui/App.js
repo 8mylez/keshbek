@@ -9,7 +9,6 @@ import Select from './Select.js';
 import Navbar from './Navbar.js';
 import Header from './Header.js';
 import Footer from './Footer.js';
-import NewTransactionModal from './NewTransactionModal.js';
 
 class App extends Component {
     renderTransactions() {
@@ -55,35 +54,6 @@ class App extends Component {
                 <div className='content'>
                     { this.props.currentUser ?
                         <div className='container'> 
-                            
-                            {/*<form onSubmit={this.handleSubmit.bind(this)}>
-                                <label>from</label>
-                                <input type='text' ref='creditor' />
-                                <label>to</label>
-                                <input type='text' ref='debitor' />
-                                <label>Value</label>
-                                <input
-                                    type='number'
-                                    ref='amount'
-                                    placeholder='value'
-                                    step='0.01'
-                                    style={marginRight}
-                                />
-                                <label>description</label>
-                                <input
-                                    type='text'
-                                    ref='description'
-                                    placeholder='description'
-                                    style={marginRight}
-                                />
-                                <label>date</label>
-                                <input
-                                    type='date'
-                                    ref='date'
-                                    style={marginRight}
-                                />
-                                <button type='submit'>save</button>
-                            </form>*/}
                             <div>
                                 <ul>
                                     {this.renderTransactions()}
@@ -92,7 +62,6 @@ class App extends Component {
                         </div> : 'Bitte einloggen...'
                     }
                 </div>
-                <NewTransactionModal />
             </div>
         )
     }
