@@ -31,34 +31,57 @@ class NewTransaction extends Component {
         const marginRight = { marginRight: '30px' };
         return (
             <div className='new-transaction-page'>
-                <form onSubmit={this.handleSubmit.bind(this)}>
-                    <label>from</label>
-                    <input type='text' ref='creditor' />
-                    <label>to</label>
-                    <input type='text' ref='debitor' />
-                    <label>Value</label>
-                    <input
-                        type='number'
-                        ref='amount'
-                        placeholder='value'
-                        step='0.01'
-                        style={marginRight}
-                    />
-                    <label>description</label>
-                    <input
-                        type='text'
-                        ref='description'
-                        placeholder='description'
-                        style={marginRight}
-                    />
-                    <label>date</label>
-                    <input
-                        type='date'
-                        ref='date'
-                        style={marginRight}
-                    />
-                    <button type='submit'>save</button>
-                </form>
+                <div className='new-transaction-form-wrapper'>
+                    <h3>New Transaction</h3>
+                    <form onSubmit={this.handleSubmit.bind(this)}>
+                        <div className="form-row">
+                            <div className="half-col">
+                                <label>from</label>
+                                <input className='input' type='text' ref='creditor' />
+                            </div>
+                            <div className="half-col">
+                                <label>to</label>
+                                <input className='input' type='text' ref='debitor' />
+                            </div>
+                        </div>
+                        <div className="form-row">
+                            <label>Value</label>
+                            <input
+                                type='number'
+                                ref='amount'
+                                placeholder='value'
+                                step='0.01'
+                                className='input'
+                            />
+                        </div>
+
+                        <div className="form-row">
+                            <label>description</label>
+                            <input
+                                type='text'
+                                ref='description'
+                                placeholder='description'
+                                className='input'
+                            />
+                        </div>
+                        
+                        <div className="form-row">
+                            <label>date</label>
+                            <input
+                                type='date'
+                                ref='date'
+                                className='input'
+                            />
+                        </div>
+                        
+                        <div className="form-row align-right">
+                            <div className="btn-group">
+                                <button className="btn btn-cancel">Cancel</button>
+                                <button className="btn btn-new" type='submit'>Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         )
     }
