@@ -72,8 +72,6 @@ export default withTracker(props => {
 
     Meteor.subscribe('transactions', props.limit, q);
     Meteor.subscribe('users');
-
-    console.log(Counts.get('transactionsCount'));
     
     return {
         transactions: Transactions.find({}, { sort: { createdAt: -1} }).fetch(),
