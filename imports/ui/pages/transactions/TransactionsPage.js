@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
+import { Counts } from 'meteor/tmeasday:publish-counts';
 
 import { Transactions } from '/imports/api/transactions.js';
 import Transaction from '/imports/ui/Transaction.js';
@@ -12,6 +13,7 @@ class TransactionsPage extends Component {
         super(props);
 
         this.onSearch = this.onSearch.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     renderTransactions() {
@@ -24,6 +26,12 @@ class TransactionsPage extends Component {
         event.preventDefault();
 
         this.props.onSearch(ReactDOM.findDOMNode(this.refs.searchValue).value);
+    }
+
+    handleClick(event) {
+        event.preventDefault();
+
+        this.props.handleClick();
     }
 
     render() {
@@ -45,6 +53,11 @@ class TransactionsPage extends Component {
                         {this.renderTransactions()}
                     </ul>
                 </div>
+                <div className="pagination-actions">
+                    { this.props.transactionsCount > this.props.limit ? (
+                        <button className="btn btn-default" onClick={this.handleClick}>Load more</button>) 
+                    : "" }
+                </div>
             </div>
         )
     }
@@ -57,13 +70,14 @@ export default withTracker(props => {
         q = props.searchQuery;
     }
 
-    console.log(q);
-
     Meteor.subscribe('transactions', props.limit, q);
     Meteor.subscribe('users');
+
+    console.log(Counts.get('transactionsCount'));
     
     return {
         transactions: Transactions.find({}, { sort: { createdAt: -1} }).fetch(),
+        transactionsCount: Counts.get('transactionsCount'),
         currentUser: Meteor.user(),
         limit: props.limit,
     };

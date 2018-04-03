@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import { Counts } from 'meteor/tmeasday:publish-counts';
 
 export const Transactions = new Mongo.Collection('transactions');
 
@@ -18,12 +19,15 @@ if(Meteor.isServer) {
             ]
         };
 
-        return Transactions.find(q, 
-            {
-                sort: { createdAt: -1 },
-                limit: limit
-            }
-        );
+        let p = {
+            sort: { createdAt: -1 },
+        }
+
+        Counts.publish(this, 'transactionsCount', Transactions.find(q, p));
+
+        p.limit = limit;
+
+        return Transactions.find(q, p);
     });
 }
 

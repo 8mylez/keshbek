@@ -38,9 +38,6 @@ export default class TransactionsPagePagination extends Component {
                     handleClick={this.handleClick}
                     onSearch={this.onSearch}
                 />
-                <div className="pagination-actions">
-                    <button className="btn btn-default" onClick={this.handleClick}>Load more</button>
-                </div>
             </div>
         );
     }
