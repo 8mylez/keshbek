@@ -5,8 +5,20 @@ import { check } from 'meteor/check';
 export const Transactions = new Mongo.Collection('transactions');
 
 if(Meteor.isServer) {
-    Meteor.publish('transactions', function(limit){
-        return Transactions.find({}, 
+    Meteor.publish('transactions', function(limit, searchValue){
+        let regex = new RegExp(searchValue, 'i');
+
+        let q = {
+            $or: [
+                { 'description': regex },
+                { 'debitor': regex },
+                { 'creditor': regex },
+                { 'date': regex },
+                { 'amount': regex },
+            ]
+        };
+
+        return Transactions.find(q, 
             {
                 sort: { createdAt: -1 },
                 limit: limit

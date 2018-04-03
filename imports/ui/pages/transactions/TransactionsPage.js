@@ -10,6 +10,8 @@ import Transaction from '/imports/ui/Transaction.js';
 class TransactionsPage extends Component {
     constructor(props) {
         super(props);
+
+        this.onSearch = this.onSearch.bind(this);
     }
 
     renderTransactions() {
@@ -18,14 +20,19 @@ class TransactionsPage extends Component {
         ));
     }
 
+    onSearch(event) {
+        event.preventDefault();
+
+        this.props.onSearch(ReactDOM.findDOMNode(this.refs.searchValue).value);
+    }
+
     render() {
-        const marginRight = { marginRight: '30px' };
         return (
             <div className="transactions-page">
                 <div className="actions-bar">
                     <div className="search-action">
                         <label>Search</label>
-                        <input className="search" type="text" name="search" />
+                        <input className="search" type="text" ref="searchValue" onChange={this.onSearch} />
                     </div>
                     <div className="new-entry-action">
                         <Link to="/transactions/new" className="btn btn-new">
@@ -44,7 +51,15 @@ class TransactionsPage extends Component {
 }
 
 export default withTracker(props => {
-    Meteor.subscribe('transactions', props.limit);
+    q = {};
+
+    if(props.searchQuery){
+        q = props.searchQuery;
+    }
+
+    console.log(q);
+
+    Meteor.subscribe('transactions', props.limit, q);
     Meteor.subscribe('users');
     
     return {

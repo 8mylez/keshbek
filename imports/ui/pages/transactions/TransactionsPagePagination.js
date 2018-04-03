@@ -7,13 +7,25 @@ export default class TransactionsPagePagination extends Component {
         super(props);
 
         this.handleClick = this.handleClick.bind(this);
+        this.onSearch = this.onSearch.bind(this);
 
-        this.state = { limit: 10 };
+        this.state = { 
+            limit: 10,
+            searchQuery: ''
+        };
     }
     
     handleClick() {
         this.setState({ 
-            limit: this.state.limit + 10
+            limit: this.state.limit + 10,
+            searchQuery: this.state.searchQuery
+        });
+    }
+
+    onSearch(searchValue) {
+        this.setState({
+            limit: this.state.limit,
+            searchQuery: searchValue
         });
     }
     
@@ -22,10 +34,12 @@ export default class TransactionsPagePagination extends Component {
             <div className="pagination-page">
                 <TransactionsPage 
                     limit={this.state.limit}
-                    loadMore={this.loadMore} 
+                    searchQuery={this.state.searchQuery}
+                    handleClick={this.handleClick}
+                    onSearch={this.onSearch}
                 />
                 <div className="pagination-actions">
-                    <button className="btn btn-default" onClick={this.handleClick.bind(this)}>Load more</button>
+                    <button className="btn btn-default" onClick={this.handleClick}>Load more</button>
                 </div>
             </div>
         );
