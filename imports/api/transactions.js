@@ -5,8 +5,13 @@ import { check } from 'meteor/check';
 export const Transactions = new Mongo.Collection('transactions');
 
 if(Meteor.isServer) {
-    Meteor.publish('transactions', function(){
-        return Transactions.find();
+    Meteor.publish('transactions', function(limit){
+        return Transactions.find({}, 
+            {
+                sort: { createdAt: -1 },
+                limit: limit
+            }
+        );
     });
 }
 

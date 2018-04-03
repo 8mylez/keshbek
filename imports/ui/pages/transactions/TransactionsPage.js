@@ -8,6 +8,10 @@ import { Transactions } from '/imports/api/transactions.js';
 import Transaction from '/imports/ui/Transaction.js';
 
 class TransactionsPage extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     renderTransactions() {
         return this.props.transactions.map((transaction) => (
             <Transaction key={transaction._id} transaction={transaction} />
@@ -39,12 +43,13 @@ class TransactionsPage extends Component {
     }
 }
 
-export default withTracker(() => {
-    Meteor.subscribe('transactions');
+export default withTracker(props => {
+    Meteor.subscribe('transactions', props.limit);
     Meteor.subscribe('users');
     
     return {
         transactions: Transactions.find({}, { sort: { createdAt: -1} }).fetch(),
         currentUser: Meteor.user(),
+        limit: props.limit,
     };
 })(TransactionsPage);
