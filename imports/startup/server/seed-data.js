@@ -12,6 +12,22 @@ function name() {
     return faker.internet.email();
 }
 
+function email() {
+    return faker.internet.email();
+}
+
+function userName() {
+    return faker.internet.userName();
+}
+
+function firstName() {
+    return faker.name.firstName();
+}
+
+function lastName() {
+    return faker.name.lastName();
+}
+
 function amount() {
     return faker.finance.amount();
 }

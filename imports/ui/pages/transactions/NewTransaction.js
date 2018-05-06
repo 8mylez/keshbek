@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
-import Transactions from '/imports/api/transactions.js';
-
 class NewTransaction extends Component {
     handleSubmit(event) {
         event.preventDefault();
@@ -28,7 +26,6 @@ class NewTransaction extends Component {
     }
 
     render() {
-        const marginRight = { marginRight: '30px' };
         return (
             <div className='new-transaction-page'>
                 <div className='new-transaction-form-wrapper'>

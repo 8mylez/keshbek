@@ -21,7 +21,7 @@ if(Meteor.isServer) {
 
         let p = {
             sort: { createdAt: -1 },
-        }
+        };
 
         Counts.publish(this, 'transactionsCount', Transactions.find(q, p));
 

@@ -7,10 +7,8 @@ export default class Header extends Component {
         return(
             <div className="header">
                 <div className="headline">
-                    <h2>Transactions</h2>
-                </div>
-                <div className="searchbar">
-                    
+                    <h2>Total In April: 15.412,00 € <i className="fa fa-arrow-up"></i></h2>
+                    <h2>Total Out April: 339,23 € <i className="fa fa-arrow-down"></i></h2>
                 </div>
                 <div className="login">
                     <AccountsUIWrapper />

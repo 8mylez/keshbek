@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import TransactionsPage, { TransationsPage } from './TransactionsPage.js'; 
+import TransactionsPage from './TransactionsPage.js'; 
 
 export default class TransactionsPagePagination extends Component {
     constructor(props) {

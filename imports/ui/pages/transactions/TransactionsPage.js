@@ -37,6 +37,7 @@ class TransactionsPage extends Component {
     render() {
         return (
             <div className="transactions-page">
+                <h2>Transactions</h2>
                 <div className="actions-bar">
                     <div className="search-action">
                         <label>Search</label>

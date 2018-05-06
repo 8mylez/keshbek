@@ -9,7 +9,6 @@ import ProfilePage from '/imports/ui/pages/ProfilePage.js';
 import CashupPage from '/imports/ui/pages/CashupPage.js';
 import TransactionsPagePagination from '/imports/ui/pages/transactions/TransactionsPagePagination.js';
 import NewTransaction from '/imports/ui/pages/transactions/NewTransaction.js';
-import ContactsPage from '/imports/ui/pages/ContactsPage.js';
 
 const browserHistory = createBrowserHistory();
 
@@ -22,7 +21,6 @@ export const renderRoutes = () => (
                 <Route exact path="/transactions/new" component={NewTransaction} />
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/cash-up" component={CashupPage} />
-                <Route path="/contacts" component={ContactsPage} />
             </Layout>
         </Switch>
     </Router>
